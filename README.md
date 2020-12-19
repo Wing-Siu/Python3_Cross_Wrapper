@@ -9,7 +9,7 @@
 
 Python3交叉封装器，在x86_64架构的GNU/Linux下利用Docker与Vagrant，模拟不同操作系统和异指令集架构操作系统，对python3脚本使用pyinstaller封装对应的二进制可执行文件  
 ### 目前支持  
-Linux : ``arm64, armel, armhf, amd64, i386, mips64ls, ppc64le, s390x``  
+Linux : ``arm64, armel, armhf, amd64, i386, mips64le, ppc64le, s390x``  
 FreeBSD : `<准备上线>`  
 生成后二进制文件运行环境GLIBC版本需在2.24以上
 
