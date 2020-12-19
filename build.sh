@@ -21,7 +21,7 @@ while true
 do
 	process0=`ps aux | grep "docker build" | grep -v grep`;
 	if [ "$process0" == "" ]; then
-		echo -e "\n[$(date "+%Y-%m-%d %H:%M:%S")]ALL Finished!";
+		echo -e "\n[$(date "+%Y-%m-%d %H:%M:%S")] ALL Finished!";
 		break;
 	else
 		echo -e ".\c"
