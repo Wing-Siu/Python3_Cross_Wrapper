@@ -6,6 +6,8 @@ mkdir build_out
 mkdir output_bin
 mkdir run_out
 
+find ./ -name "*.sh" | xargs -i chmod +x {}
+
 nohup docker build ./platforms/Linux/ --target arm64 -t python3_cross_packager/linux-arm64 >build_out/linux-arm64.out 2>&1 &
 nohup docker build ./platforms/Linux/ --target armel -t python3_cross_packager/linux-armel >build_out/linux-armel.out 2>&1 &
 nohup docker build ./platforms/Linux/ --target armhf -t python3_cross_packager/linux-armhf >build_out/linux-armhf.out 2>&1 &
