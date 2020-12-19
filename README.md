@@ -1,2 +1,2 @@
 # Python3 Cross Packager
-Python3交叉封装器，利用Docker与Vagrant模拟不同操作系统和异指令集架构操作系统对python3脚本使用pyinstaller封装对应的二进制可执行文件
+Python3交叉封装器，在x86_64架构的GNU/Linux下利用Docker与Vagrant，模拟不同操作系统和异指令集架构操作系统，对python3脚本使用pyinstaller封装对应的二进制可执行文件
