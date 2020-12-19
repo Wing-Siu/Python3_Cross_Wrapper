@@ -9,11 +9,12 @@ nohup docker run -i -e project_name="$1" -v $folder:/source_code -v $PWD/output_
 nohup docker run -i -e project_name="$1" -v $folder:/source_code -v $PWD/output_bin:/output_bin python3_cross_packager/linux-ppc64le >run_out/linux-ppc64le.out 2>&1 &
 nohup docker run -i -e project_name="$1" -v $folder:/source_code -v $PWD/output_bin:/output_bin python3_cross_packager/linux-s390x >run_out/linux-s390x.out 2>&1 &
 
+echo "[$(date "+%Y-%m-%d %H:%M:%S")] Encapsulating"
 while true
 do
         process0=`ps aux | grep "docker run" | grep -v grep`;
         if [ "$process0" == "" ]; then
-                echo -e "\nALL Finished!";
+                echo -e "\n[$(date "+%Y-%m-%d %H:%M:%S")] ALL Finished!";
                 break;
         else
                 echo -e ".\c"
