@@ -36,6 +36,8 @@ vagrant插件:
 `chmod +x firsh.sh`  
 `./firsh.sh`  
 
+### 记得给需要运行的sh文件添加可执行权限
+
 ### 开始构建Docker镜像
 `chmod +x ./build.sh`  
 `./build.sh`  
