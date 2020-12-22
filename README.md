@@ -9,20 +9,25 @@
 
 Python3交叉封装器，在x86_64架构的GNU/Linux下利用Docker与Vagrant，模拟不同操作系统和异指令集架构操作系统，对python3脚本使用pyinstaller封装对应的二进制可执行文件  
 ### 目前支持  
-Linux : ``arm64, armel, armhf, amd64, i386, mips64le, ppc64le, s390x``  
-FreeBSD : `<准备上线>`  
-生成后二进制文件运行环境GLIBC版本需在2.24以上
+Linux : `arm64, armel, armhf, amd64, i386, mips64le, ppc64le, s390x`  
+FreeBSD : `amd64`  
+Linux生成后二进制文件运行环境GLIBC版本需在2.24以上
+
+## 需求
+不同操作系统之间需要不同的封装脚本  
+FreeBSD安装python模块推荐优先使用pkg install py37-<名称>  
+需要在项目文件夹下分别创建封装脚本`wrapper/Linux-aio.sh`和`wrapper/FreeBSD-amd64.sh`  
 
 ## 开始
-建议全程在Debian10 amd64下操作系统操作
-### 运行`firsh.sh`一键安装Vagrant Docker Virtualbox等软件，也可以自行安装  
+建议全程在新生成的Debian10 amd64实例下操作
+### 运行`firsh.sh`在Debian10下一键安装Vagrant Docker Virtualbox等软件，也可以自行安装  
 `chmod +x firsh.sh`  
 `./firsh.sh`  
 
 ### 安装 qemu-static-user
 `docker run --rm --privileged multiarch/qemu-user-static --reset -p yes`
 
-### 开始构建镜像
+### 开始构建Docker镜像
 `chmod +x ./build.sh`  
 `./build.sh`  
 可以运行`./list.sh`和`cat build_out/linux-<指令集架构>.out`检测进度  
