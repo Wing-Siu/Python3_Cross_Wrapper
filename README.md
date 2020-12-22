@@ -16,7 +16,7 @@ Linux生成后二进制文件运行环境GLIBC版本需在2.24以上
 # 需求
 不同操作系统之间需要不同的封装脚本  
 FreeBSD安装python模块推荐优先使用pkg install py37-<名称>  
-需要在项目文件夹下分别创建封装脚本`wrapper/Linux-aio.sh`和`wrapper/FreeBSD-amd64.sh`  
+需要在项目文件夹下分别创建封装脚本`wrapper/Linux.sh`和`wrapper/FreeBSD-amd64.sh`  
 
 # 开始
 
