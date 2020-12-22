@@ -8,6 +8,7 @@ curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
 add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
 apt update
 apt install docker-ce -y
+docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 
 
 echo "======================="
@@ -29,3 +30,4 @@ echo "======================="
 apt install vagrant -y
 vagrant plugin install vagrant-libvirt
 vagrant plugin install vagrant-rsync-back
+vagrant plugin install vagrant-env
