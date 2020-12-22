@@ -13,19 +13,28 @@ Linux : `arm64, armel, armhf, amd64, i386, mips64le, ppc64le, s390x`
 FreeBSD : `amd64`  
 Linux生成后二进制文件运行环境GLIBC版本需在2.24以上
 
-## 需求
+# 需求
 不同操作系统之间需要不同的封装脚本  
 FreeBSD安装python模块推荐优先使用pkg install py37-<名称>  
 需要在项目文件夹下分别创建封装脚本`wrapper/Linux-aio.sh`和`wrapper/FreeBSD-amd64.sh`  
 
-## 开始
-建议全程在新生成的Debian10 amd64实例下操作
-### 运行`firsh.sh`在Debian10下一键安装Vagrant Docker Virtualbox等软件，也可以自行安装  
+# 开始
+
+## 依赖
+`virtualbox-6.0`  
+`docker-ce`  
+`vagrant`  
+
+docker镜像:  
+`multiarch/qemu-user-static` 
+
+vagrant插件:  
+`vagrant-libvirt`  
+`vagrant-env`  
+
+#### 也可以运行`firsh.sh`在Debian10下一键安装Vagrant Docker qemu-static-user Virtualbox等软件进行初始化，也可以自行安装  
 `chmod +x firsh.sh`  
 `./firsh.sh`  
-
-### 安装 qemu-static-user
-`docker run --rm --privileged multiarch/qemu-user-static --reset -p yes`
 
 ### 开始构建Docker镜像
 `chmod +x ./build.sh`  
