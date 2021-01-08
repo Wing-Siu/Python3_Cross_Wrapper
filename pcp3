@@ -1,0 +1,132 @@
+if [ ! -n "$1" ] || [ $1 == "help" ] || [ $1 == "-h" ] || [ $1 == "--help" ]; then
+	echo "Usage: ./pcp3 [OPTIONS]..."
+	echo ""
+	echo "  -b, --build                             Build Docker image for packaging."
+	echo "  -c, --clean                             Clean output messages."
+	echo "  -f, --firsh                             Deployment packaging environment."
+	echo "  -l, --list                              Show build & run proccess."
+	echo "  -r, --run [PROJECT_NAME] [SOURCE_CODE]  Package Python3 script."
+	exit 0
+fi
+
+if [ $1 == "--build" ] || [ $1 == "-b" ]; then
+	mkdir build_out
+	mkdir run_out
+	nohup docker build ./platforms/Linux/ --target arm64 -t python3_cross_packager/linux-arm64 >build_out/linux-arm64.out 2>&1 &
+	nohup docker build ./platforms/Linux/ --target armel -t python3_cross_packager/linux-armel >build_out/linux-armel.out 2>&1 &
+	nohup docker build ./platforms/Linux/ --target armhf -t python3_cross_packager/linux-armhf >build_out/linux-armhf.out 2>&1 &
+	nohup docker build ./platforms/Linux/ --target amd64 -t python3_cross_packager/linux-amd64 >build_out/linux-amd64.out 2>&1 &
+	nohup docker build ./platforms/Linux/ --target i386 -t python3_cross_packager/linux-i386 >build_out/linux-i386.out 2>&1 &
+	nohup docker build ./platforms/Linux/ --target mips64le -t python3_cross_packager/linux-mips64le >build_out/linux-mips64le.out 2>&1 &
+	nohup docker build ./platforms/Linux/ --target ppc64le -t python3_cross_packager/linux-ppc64le >build_out/linux-ppc64le.out 2>&1 &
+	nohup docker build ./platforms/Linux/ --target s390x -t python3_cross_packager/linux-s390x >build_out/linux-s390x.out 2>&1 &
+
+	while true
+	do
+		process0=`ps aux | grep "docker build" | grep -v grep`;
+		if [ "$process0" == "" ]; then
+			echo -e "\nALL Finished!";
+			break;
+		else
+			echo -e ".\c"
+			sleep 5;
+		fi
+	done
+	exit 0
+fi
+
+if [ $1 == "--clean" ] || [ $1 == "-c" ]; then
+	rm -rf ./*_out/*.out
+	exit 0
+fi
+
+if [ $1 == "--first" ] || [ $1 == "-f" ]; then
+	read -r -p "Are You Sure? [Y/n] " input
+	case $input in
+		[yY][eE][sS]|[yY])
+			echo "Yes"
+			;;
+
+		[nN][oO]|[nN])
+			echo "No"
+			exit 0
+			;;
+
+		*)
+			echo "Invalid input"
+			exit 1
+		;;
+	esac
+	echo "======================="
+	echo "                       "
+	echo "     Install Docker"
+	echo "                       "
+	echo "======================="
+	curl -sSL https://get.daocloud.io/docker | sh
+	docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+	echo "======================="
+	echo "                       "
+	echo "   Install Virtualbox"
+	echo "                       "
+	echo "======================="
+	echo "deb https://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" > /etc/apt/sources.list.d/virtualbox.list
+	wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | apt-key add -
+	wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key add -
+	apt update
+	apt install virtualbox-6.0 -y
+	echo "======================="
+	echo "                       "
+	echo "     Install Vagrant"
+	echo "                       "
+	echo "======================="
+	apt install vagrant -y
+	vagrant plugin install vagrant-rsync-back
+	vagrant plugin install vagrant-env
+	exit 0
+fi
+
+if [ $1 == "--list" ] || [ $1 == "-l" ]; then
+	ps aux | grep "docker build" | grep -v grep
+	ps aux | grep "docker run" | grep -v grep
+	ps aux | grep "vagrant" | grep -v grep
+	exit 0
+fi
+
+if [ $1 == "--run" ] || [ $1 == "-r" ]; then
+	if [ ! -n "$2" ] || [ ! -n "$3" ] ;then
+		echo "[ERROR] You have not input PROJECT_NAME or SOURCE_CODE path!"
+		exit 1
+	fi
+	echo "PROJECT_NAME: $2"
+	echo "SOURCE_CODE:  $3"
+	chmod +x source_code/*/wrapper/*.sh
+	chmod +x platforms/*/*.sh
+	nohup docker run -i -e project_name="$2" -v $PWD/$3:/source_code -v $PWD/output_bin:/output_bin python3_cross_packager/linux-amd64 >run_out/linux-amd64.out 2>&1 &
+	nohup docker run -i -e project_name="$2" -v $PWD/$3:/source_code -v $PWD/output_bin:/output_bin python3_cross_packager/linux-arm64 >run_out/linux-arm64.out 2>&1 &
+	nohup docker run -i -e project_name="$2" -v $PWD/$3:/source_code -v $PWD/output_bin:/output_bin python3_cross_packager/linux-armel >run_out/linux-armel.out 2>&1 &
+	nohup docker run -i -e project_name="$2" -v $PWD/$3:/source_code -v $PWD/output_bin:/output_bin python3_cross_packager/linux-armhf >run_out/linux-armhf.out 2>&1 &
+	nohup docker run -i -e project_name="$2" -v $PWD/$3:/source_code -v $PWD/output_bin:/output_bin python3_cross_packager/linux-i386 >run_out/linux-i386.out 2>&1 &
+	nohup docker run -i -e project_name="$2" -v $PWD/$3:/source_code -v $PWD/output_bin:/output_bin python3_cross_packager/linux-mips64le >run_out/linux-mips64le.out 2>&1 &
+	nohup docker run -i -e project_name="$2" -v $PWD/$3:/source_code -v $PWD/output_bin:/output_bin python3_cross_packager/linux-ppc64le >run_out/linux-ppc64le.out 2>&1 &
+	nohup docker run -i -e project_name="$2" -v $PWD/$3:/source_code -v $PWD/output_bin:/output_bin python3_cross_packager/linux-s390x >run_out/linux-s390x.out 2>&1 &
+	cd platforms/FreeBSD-amd64
+	nohup ./run.sh $2 $3 >../../run_out/freebsd-amd64.out 2>&1 &
+	cd ../../
+
+	while true
+	do
+		process0=`ps aux | grep "docker run" | grep -v grep`;
+		process1=`ps aux | grep "vagrant" | grep -v grep`;
+		if [ "$process0" == "" ] && [ "$process1" == "" ]; then
+			echo -e "\nALL Finished!";
+			break
+		else
+			echo -e ".\c"
+			sleep 5
+		fi
+	done
+	exit 0
+fi
+
+echo "pcp3: invalid option -- '$1'"
+echo 'Try "./pcp3 --help" for more information.'
