@@ -29,24 +29,24 @@ docker镜像:
 `multiarch/qemu-user-static` 
 
 vagrant插件:  
-`vagrant-libvirt`  
 `vagrant-env`  
 
-#### 也可以运行`firsh.sh`在Debian10下一键安装Vagrant Docker qemu-static-user Virtualbox等软件进行初始化，也可以自行安装  
-`chmod +x firsh.sh`  
-`./firsh.sh`  
+#### 也可以运行`./pcp3 -f`在Debian10下一键安装Vagrant Docker qemu-static-user Virtualbox等软件进行初始化，也可以自行安装  
+`chmod +x pcp3`  
+`./pcp3 -f`  
 
 ### 记得给需要运行的sh文件添加可执行权限
 
 ### 开始构建Docker镜像
-`chmod +x ./build.sh`  
-`./build.sh`  
-可以运行`./list.sh`和`cat build_out/linux-<指令集架构>.out`检测进度  
+`./pcp3 -b`  
+可以在另一会话运行`./pcp3 -l`和`tail -f build_out/*`检测进度  
 构建和封装分别用时30分钟到1小时不等
 
 ### 封装python3脚本
 在source_code下导入项目文件夹，默认为example，第一个运行参数为项目名称，第二个为项目路径  
-`./run.sh example_test source_code/example/`  
-可以运行`./list.sh`和`cat run_out/linux-<指令集架构>.out`检测进度  
+`./pcp -r example_test source_code/example/`  
+可以在另一会话运行`./pcp3 -l`和`tail -f run_out/*`检测进度  
+**封装结束后，所有可执行文件均在output_bin下以zip压缩文件包的形式出现，需解压后运行** 
 
-### 封装结束后，所有可执行文件均在output_bin下以zip压缩文件包的形式出现，需解压后运行
+### 清除封装输出信息
+`./pcp3 -c`
