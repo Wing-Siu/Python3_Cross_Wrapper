@@ -43,8 +43,13 @@ vagrant插件:
 构建和封装分别用时30分钟到1小时不等
 
 ### 封装python3脚本
-在source_code下导入项目文件夹，默认为example，第一个运行参数为项目名称，第二个为项目路径  
-`./pcp -r example_test source_code/example/`  
+在source_code下导入项目文件夹  
+`cd source_code`  
+`git clone https://github.com/xxx/xxx`  
+`cd ../`  
+
+执行封装操作，第一个运行参数为项目名称，第二个为项目路径  
+`./pcp3 -r example_test source_code/example/`  
 可以在另一会话运行`./pcp3 -l`和`tail -f run_out/*`检测进度  
 **封装结束后，所有可执行文件均在output_bin下以zip压缩文件包的形式出现，需解压后运行** 
 
