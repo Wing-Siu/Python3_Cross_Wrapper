@@ -1,5 +1,5 @@
 #amd64
-FROM debian:foo@sha256:7317c3e3f5a1139d5a00407735bba8fbce2cf8f3c5b9c03f71ae21434e34e8cf as amd64
+FROM debian:foo@sha256:f0bbbb17bb1f3204ba6a37e28a2d6ec70aa6a6d96e45aae8b0aabe2b93131963 as amd64
 VOLUME [/source_code]
 VOLUME [/output_bin]
 
@@ -13,7 +13,7 @@ RUN mkdir /workspace
 CMD cp -r /source_code/* /workspace && cd /workspace && ./wrapper/Linux.sh && cd dist && zip $(echo $project_name)-$(uname)-$(dpkg --print-architecture).zip * && mv *.zip /output_bin
 
 #arm64
-FROM debian:foo@sha256:f9007c3dbd43b4ba83eac90f029f37a43a3ea9b48b737e95963fae81bc892313 as arm64
+FROM debian:foo@sha256:e51325052cf978c32c61afabf1e30adb01310751cb1f51d7d8a75cea0bb5400e as arm64
 
 VOLUME [/source_code]
 VOLUME [/output_bin]
@@ -36,7 +36,7 @@ RUN mkdir /workspace
 CMD cp -r /source_code/* /workspace/ && cd /workspace && ./wrapper/Linux.sh && cd dist && zip $(echo $project_name)-$(uname)-$(dpkg --print-architecture).zip * && mv *.zip /output_bin
 
 #armel
-FROM debian:foo@sha256:58c8b7ddc30326ada69051bce8dbce161d50ee697da4d20b8850c8ab90b8dcc0 as armel
+FROM debian:foo@sha256:ff6da4654914c9ceecad572c476ebc4ef3dffed7dd7321824652d45491a0e869 as armel
 VOLUME [/source_code]
 VOLUME [/output_bin]
 ENV PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -52,12 +52,12 @@ RUN sed -i "s/                                        '-Werror',//" wscript
 RUN python3 ./waf distclean all
 WORKDIR /pyinstaller-4.0
 RUN python3 setup.py install
-#========== pyinstaller compile ============ 
+#========== pyinstaller compile ============
 RUN mkdir /workspace
 CMD cp -r /source_code/* /workspace && cd /workspace && ./wrapper/Linux.sh && cd dist && zip $(echo $project_name)-$(uname)-$(dpkg --print-architecture).zip * && mv *.zip /output_bin
 
 #armhf
-FROM debian:foo@sha256:c158f9db412f045247390db719761bedaa0b7811e75dfdc278cbc306b224d18f as armhf
+FROM debian:foo@sha256:530181f0cfdf0331dd8aa1166175fd114500470a9e93085a0c50f00b50de6467 as armhf
 VOLUME [/source_code]
 VOLUME [/output_bin]
 ENV PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -73,14 +73,14 @@ RUN sed -i "s/                                        '-Werror',//" wscript
 RUN python3 ./waf distclean all
 WORKDIR /pyinstaller-4.0
 RUN python3 setup.py install
-#========== pyinstaller compile ============ 
+#========== pyinstaller compile ============
 RUN mkdir /workspace
 
 
 CMD cp -r /source_code/* /workspace && cd /workspace && ./wrapper/Linux.sh && cd dist && zip $(echo $project_name)-$(uname)-$(dpkg --print-architecture).zip * && mv *.zip /output_bin
 
 #i386
-FROM debian:foo@sha256:6212661c9e10f8fc7be797e5d9550948bb654455798fc7eb5df4c3d6bac42315 as i386
+FROM debian:foo@sha256:caa56df7489c7fe146603c2626b0d58138b92e0fddbd1773d98f57f47e38463b as i386
 VOLUME [/source_code]
 VOLUME [/output_bin]
 ENV PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -93,7 +93,7 @@ RUN mkdir /workspace
 CMD cp -r /source_code/* /workspace && cd /workspace && ./wrapper/Linux.sh && cd dist && zip $(echo $project_name)-$(uname)-$(dpkg --print-architecture).zip * && mv *.zip /output_bin
 
 #mips64le
-FROM debian:foo@sha256:680739686e5dd521e1a7f6717e4bc220917ac53e20fc56b3378e614b01d66634 as mips64le
+FROM debian:foo@sha256:defc55973546604a9ba8105eeb2abf4b44ce34ebffc0ce62020f68fe01282ab4 as mips64le
 VOLUME [/source_code]
 VOLUME [/output_bin]
 ENV PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -109,12 +109,12 @@ RUN sed -i "s/                                        '-Werror',//" wscript
 RUN python3 ./waf distclean all
 WORKDIR /pyinstaller-4.0
 RUN python3 setup.py install
-#========== pyinstaller compile ============ 
+#========== pyinstaller compile ============
 RUN mkdir /workspace
 CMD cp -r /source_code/* /workspace && cd /workspace && ./wrapper/Linux.sh && cd dist && zip $(echo $project_name)-$(uname)-$(dpkg --print-architecture).zip * && mv *.zip /output_bin
 
 #ppc64le
-FROM debian:foo@sha256:2dfc33e72de78a77c363e029558e46855c34c4d6f5d04f400679c999db259a5b as ppc64le
+FROM debian:foo@sha256:6bee812cdd765f1c77a64bf7897981ad2b3b10a3eca58500645d1927c241ac3a as ppc64le
 VOLUME [/source_code]
 VOLUME [/output_bin]
 ENV PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -130,12 +130,12 @@ RUN sed -i "s/                                        '-Werror',//" wscript
 RUN python3 ./waf distclean all
 WORKDIR /pyinstaller-4.0
 RUN python3 setup.py install
-#========== pyinstaller compile ============ 
+#========== pyinstaller compile ============
 RUN mkdir /workspace
 CMD cp -r /source_code/* /workspace && cd /workspace && ./wrapper/Linux.sh && cd dist && zip $(echo $project_name)-$(uname)-$(dpkg --print-architecture).zip * && mv *.zip /output_bin
 
 #s390x
-FROM debian:foo@sha256:f4f8457fd057d0744bbd01d994e9ad1229f0bee5d063f1ab7a8568ef18c8ddf8 as s390x
+FROM debian:foo@sha256:6738466aa19a116ca4dbb9bcdc973444d2a3774d14d98ef0f64be7828d573654 as s390x
 VOLUME [/source_code]
 VOLUME [/output_bin]
 ENV PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -151,6 +151,6 @@ RUN sed -i "s/                                        '-Werror',//" wscript
 RUN python3 ./waf distclean all
 WORKDIR /pyinstaller-4.0
 RUN python3 setup.py install
-#========== pyinstaller compile ============ 
+#========== pyinstaller compile ============
 RUN mkdir /workspace
 CMD cp -r /source_code/* /workspace && cd /workspace && ./wrapper/Linux.sh && cd dist && zip $(echo $project_name)-$(uname)-$(dpkg --print-architecture).zip * && mv *.zip /output_bin
