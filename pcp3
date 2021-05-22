@@ -64,7 +64,8 @@ if [ $1 == "--first" ] || [ $1 == "-f" ]; then
 	echo "======================="
 	apt update
 	apt install curl apt-transport-https ca-certificates curl software-properties-common gnupg2 sudo -y
-	curl -sSL https://get.daocloud.io/docker | sh
+	curl -fsSL https://get.docker.com -o get-docker.sh
+	sh get-docker.sh
 	docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 	echo "======================="
 	echo "                       "
