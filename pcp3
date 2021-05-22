@@ -75,6 +75,7 @@ if [ $1 == "--first" ] || [ $1 == "-f" ]; then
 	wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | apt-key add -
 	wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key add -
 	apt update
+	apt install dkms build-essential linux-headers-`uname -r`
 	apt install virtualbox-6.0 -y
 	echo "======================="
 	echo "                       "
