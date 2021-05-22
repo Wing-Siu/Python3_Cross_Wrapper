@@ -1,7 +1,7 @@
 sudo su
 ifconfig
 sed -i '' 's/#ASSUME_ALWAYS_YES = false;/ASSUME_ALWAYS_YES = true;/g' /usr/local/etc/pkg.conf
-pkg install python37 zip py37-pip
+pkg install python38 zip py38-pip
 cp -r /home/vagrant/source_code/ /home/vagrant/workspace
 cd /home/vagrant/workspace
 chmod +x wrapper/FreeBSD.sh
