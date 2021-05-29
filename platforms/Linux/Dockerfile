@@ -22,7 +22,7 @@ ENV PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:
 RUN apt update
 RUN ldd --version | grep ldd
 RUN uname -m
-RUN apt install python3 python3-pip sudo zip build-essential zlib1g-dev wget nano -y
+RUN apt install python3 python3-pip sudo zip build-essential zlib1g-dev wget nano git libxml2-dev libxslt-dev libcmocka-dev libcmocka0 zlib* libjpeg-dev -y
 #========== pyinstaller compile ============
 RUN wget https://files.pythonhosted.org/packages/82/96/21ba3619647bac2b34b4996b2dbbea8e74a703767ce24192899d9153c058/pyinstaller-4.0.tar.gz
 RUN tar -zxvf pyinstaller-4.0.tar.gz
@@ -32,6 +32,7 @@ RUN python3 ./waf distclean all
 WORKDIR /pyinstaller-4.0
 RUN python3 setup.py install
 #========== pyinstaller compile ============
+RUN pip3 install lxml pillow
 RUN mkdir /workspace
 CMD cp -r /source_code/* /workspace/ && cd /workspace && ./wrapper/Linux.sh && cd dist && zip $(echo $project_name)-$(uname)-$(dpkg --print-architecture).zip * && mv *.zip /output_bin
 
@@ -43,7 +44,7 @@ ENV PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:
 RUN apt update
 RUN ldd --version | grep ldd
 RUN uname -m
-RUN apt install python3 python3-pip sudo zip build-essential zlib1g-dev wget nano -y
+RUN apt install python3 python3-pip sudo zip build-essential zlib1g-dev wget nano git libxml2-dev libxslt-dev libcmocka-dev libcmocka0 zlib* libjpeg-dev -y
 #========== pyinstaller compile ============
 RUN wget https://files.pythonhosted.org/packages/82/96/21ba3619647bac2b34b4996b2dbbea8e74a703767ce24192899d9153c058/pyinstaller-4.0.tar.gz
 RUN tar -zxvf pyinstaller-4.0.tar.gz
@@ -53,6 +54,7 @@ RUN python3 ./waf distclean all
 WORKDIR /pyinstaller-4.0
 RUN python3 setup.py install
 #========== pyinstaller compile ============
+RUN pip3 install lxml pillow
 RUN mkdir /workspace
 CMD cp -r /source_code/* /workspace && cd /workspace && ./wrapper/Linux.sh && cd dist && zip $(echo $project_name)-$(uname)-$(dpkg --print-architecture).zip * && mv *.zip /output_bin
 
@@ -64,7 +66,7 @@ ENV PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:
 RUN apt update
 RUN ldd --version | grep ldd
 RUN uname -m
-RUN apt install python3 python3-pip sudo zip build-essential zlib1g-dev wget nano -y
+RUN apt install python3 python3-pip sudo zip build-essential zlib1g-dev wget nano git libxml2-dev libxslt-dev libcmocka-dev libcmocka0 zlib* libjpeg-dev -y
 #========== pyinstaller compile ============
 RUN wget https://files.pythonhosted.org/packages/82/96/21ba3619647bac2b34b4996b2dbbea8e74a703767ce24192899d9153c058/pyinstaller-4.0.tar.gz
 RUN tar -zxvf pyinstaller-4.0.tar.gz
@@ -74,9 +76,8 @@ RUN python3 ./waf distclean all
 WORKDIR /pyinstaller-4.0
 RUN python3 setup.py install
 #========== pyinstaller compile ============
+RUN pip3 install lxml pillow
 RUN mkdir /workspace
-
-
 CMD cp -r /source_code/* /workspace && cd /workspace && ./wrapper/Linux.sh && cd dist && zip $(echo $project_name)-$(uname)-$(dpkg --print-architecture).zip * && mv *.zip /output_bin
 
 #i386
@@ -93,14 +94,14 @@ RUN mkdir /workspace
 CMD cp -r /source_code/* /workspace && cd /workspace && ./wrapper/Linux.sh && cd dist && zip $(echo $project_name)-$(uname)-$(dpkg --print-architecture).zip * && mv *.zip /output_bin
 
 #mips
-FROM debian:foo@sha256:8929139785e66144057d170de8982a6ed2944800cfd897cd270903d647d2fef6 as mips
+FROM lpenz/debian-buster-mips-minbase as mips
 VOLUME [/source_code]
 VOLUME [/output_bin]
 ENV PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 RUN apt update
 RUN ldd --version | grep ldd
 RUN uname -m
-RUN apt install python3 python3-pip sudo zip build-essential zlib1g-dev wget nano -y
+RUN apt install python3 python3-pip sudo zip build-essential zlib1g-dev wget nano git libxml2-dev libxslt-dev libcmocka-dev libcmocka0 zlib* libjpeg-dev -y
 #========== pyinstaller compile ============
 RUN wget https://files.pythonhosted.org/packages/82/96/21ba3619647bac2b34b4996b2dbbea8e74a703767ce24192899d9153c058/pyinstaller-4.0.tar.gz
 RUN tar -zxvf pyinstaller-4.0.tar.gz
@@ -110,18 +111,19 @@ RUN python3 ./waf distclean all
 WORKDIR /pyinstaller-4.0
 RUN python3 setup.py install
 #========== pyinstaller compile ============
+RUN pip3 install lxml pillow
 RUN mkdir /workspace
 CMD cp -r /source_code/* /workspace && cd /workspace && ./wrapper/Linux.sh && cd dist && zip $(echo $project_name)-$(uname)-$(dpkg --print-architecture).zip * && mv *.zip /output_bin
 
 #mipsel
-FROM debian:foo@sha256:24d1fcbe8ae1a185913dc1da4b87e4764d49551b66c2cf52a401688a38ddc43a as mipsel
+FROM lpenz/debian-buster-mipsel-minbase as mipsel
 VOLUME [/source_code]
 VOLUME [/output_bin]
 ENV PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 RUN apt update
 RUN ldd --version | grep ldd
 RUN uname -m
-RUN apt install python3 python3-pip sudo zip build-essential zlib1g-dev wget nano -y
+RUN apt install python3 python3-pip sudo zip build-essential zlib1g-dev wget nano git libxml2-dev libxslt-dev libcmocka-dev libcmocka0 zlib* libjpeg-dev -y
 #========== pyinstaller compile ============
 RUN wget https://files.pythonhosted.org/packages/82/96/21ba3619647bac2b34b4996b2dbbea8e74a703767ce24192899d9153c058/pyinstaller-4.0.tar.gz
 RUN tar -zxvf pyinstaller-4.0.tar.gz
@@ -131,6 +133,7 @@ RUN python3 ./waf distclean all
 WORKDIR /pyinstaller-4.0
 RUN python3 setup.py install
 #========== pyinstaller compile ============
+RUN pip3 install lxml pillow
 RUN mkdir /workspace
 CMD cp -r /source_code/* /workspace && cd /workspace && ./wrapper/Linux.sh && cd dist && zip $(echo $project_name)-$(uname)-$(dpkg --print-architecture).zip * && mv *.zip /output_bin
 
@@ -142,7 +145,7 @@ ENV PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:
 RUN apt update
 RUN ldd --version | grep ldd
 RUN uname -m
-RUN apt install python3 python3-pip sudo zip build-essential zlib1g-dev wget nano -y
+RUN apt install python3 python3-pip sudo zip build-essential zlib1g-dev wget nano git libxml2-dev libxslt-dev libcmocka-dev libcmocka0 zlib* libjpeg-dev -y
 #========== pyinstaller compile ============
 RUN wget https://files.pythonhosted.org/packages/82/96/21ba3619647bac2b34b4996b2dbbea8e74a703767ce24192899d9153c058/pyinstaller-4.0.tar.gz
 RUN tar -zxvf pyinstaller-4.0.tar.gz
@@ -152,6 +155,7 @@ RUN python3 ./waf distclean all
 WORKDIR /pyinstaller-4.0
 RUN python3 setup.py install
 #========== pyinstaller compile ============
+RUN pip3 install lxml pillow
 RUN mkdir /workspace
 CMD cp -r /source_code/* /workspace && cd /workspace && ./wrapper/Linux.sh && cd dist && zip $(echo $project_name)-$(uname)-$(dpkg --print-architecture).zip * && mv *.zip /output_bin
 
@@ -163,7 +167,7 @@ ENV PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:
 RUN apt update
 RUN ldd --version | grep ldd
 RUN uname -m
-RUN apt install python3 python3-pip sudo zip build-essential zlib1g-dev wget nano -y
+RUN apt install python3 python3-pip sudo zip build-essential zlib1g-dev wget nano git libxml2-dev libxslt-dev libcmocka-dev libcmocka0 zlib* libjpeg-dev -y
 #========== pyinstaller compile ============
 RUN wget https://files.pythonhosted.org/packages/82/96/21ba3619647bac2b34b4996b2dbbea8e74a703767ce24192899d9153c058/pyinstaller-4.0.tar.gz
 RUN tar -zxvf pyinstaller-4.0.tar.gz
@@ -173,6 +177,7 @@ RUN python3 ./waf distclean all
 WORKDIR /pyinstaller-4.0
 RUN python3 setup.py install
 #========== pyinstaller compile ============
+RUN pip3 install lxml pillow
 RUN mkdir /workspace
 CMD cp -r /source_code/* /workspace && cd /workspace && ./wrapper/Linux.sh && cd dist && zip $(echo $project_name)-$(uname)-$(dpkg --print-architecture).zip * && mv *.zip /output_bin
 
@@ -184,7 +189,7 @@ ENV PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:
 RUN apt update
 RUN ldd --version | grep ldd
 RUN uname -m
-RUN apt install python3 python3-pip sudo zip build-essential zlib1g-dev wget nano -y
+RUN apt install python3 python3-pip sudo zip build-essential zlib1g-dev wget nano git libxml2-dev libxslt-dev libcmocka-dev libcmocka0 zlib* libjpeg-dev -y
 #========== pyinstaller compile ============
 RUN wget https://files.pythonhosted.org/packages/82/96/21ba3619647bac2b34b4996b2dbbea8e74a703767ce24192899d9153c058/pyinstaller-4.0.tar.gz
 RUN tar -zxvf pyinstaller-4.0.tar.gz
@@ -194,5 +199,6 @@ RUN python3 ./waf distclean all
 WORKDIR /pyinstaller-4.0
 RUN python3 setup.py install
 #========== pyinstaller compile ============
+RUN pip3 install lxml pillow
 RUN mkdir /workspace
 CMD cp -r /source_code/* /workspace && cd /workspace && ./wrapper/Linux.sh && cd dist && zip $(echo $project_name)-$(uname)-$(dpkg --print-architecture).zip * && mv *.zip /output_bin
