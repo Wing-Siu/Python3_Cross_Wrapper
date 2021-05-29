@@ -22,7 +22,9 @@ Python3交叉封装器，在x86_64架构的GNU/Linux下利用Docker与Vagrant，
 * s390x
 ## FreeBSD  
 * amd64  
-Linux生成后二进制文件运行环境GLIBC版本需在2.24以上
+
+
+### Linux生成后二进制文件运行环境GLIBC版本需在2.24以上
 
 # 需求
 不同操作系统之间需要不同的封装脚本  
