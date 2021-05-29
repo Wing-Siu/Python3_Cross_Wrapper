@@ -17,7 +17,9 @@ if [ $1 == "--build" ] || [ $1 == "-b" ]; then
 	nohup docker build ./platforms/Linux/ --target armhf -t python3_cross_packager/linux-armhf >build_out/linux-armhf.out 2>&1 &
 	nohup docker build ./platforms/Linux/ --target amd64 -t python3_cross_packager/linux-amd64 >build_out/linux-amd64.out 2>&1 &
 	nohup docker build ./platforms/Linux/ --target i386 -t python3_cross_packager/linux-i386 >build_out/linux-i386.out 2>&1 &
-	nohup docker build ./platforms/Linux/ --target mips64le -t python3_cross_packager/linux-mips64le >build_out/linux-mips64le.out 2>&1 &
+	nohup docker build ./platforms/Linux/ --target mips -t python3_cross_packager/linux-mips64le >build_out/linux-mips.out 2>&1 &
+	nohup docker build ./platforms/Linux/ --target mipsel -t python3_cross_packager/linux-mips64le >build_out/linux-mipsel.out 2>&1 &
+	nohup docker build ./platforms/Linux/ --target mips64el -t python3_cross_packager/linux-mips64le >build_out/linux-mips64el.out 2>&1 &
 	nohup docker build ./platforms/Linux/ --target ppc64le -t python3_cross_packager/linux-ppc64le >build_out/linux-ppc64le.out 2>&1 &
 	nohup docker build ./platforms/Linux/ --target s390x -t python3_cross_packager/linux-s390x >build_out/linux-s390x.out 2>&1 &
 
@@ -110,7 +112,9 @@ if [ $1 == "--run" ] || [ $1 == "-r" ]; then
 	nohup docker run -i -e project_name="$2" -v $PWD/$3:/source_code -v $PWD/output_bin:/output_bin python3_cross_packager/linux-armel >run_out/linux-armel.out 2>&1 &
 	nohup docker run -i -e project_name="$2" -v $PWD/$3:/source_code -v $PWD/output_bin:/output_bin python3_cross_packager/linux-armhf >run_out/linux-armhf.out 2>&1 &
 	nohup docker run -i -e project_name="$2" -v $PWD/$3:/source_code -v $PWD/output_bin:/output_bin python3_cross_packager/linux-i386 >run_out/linux-i386.out 2>&1 &
-	nohup docker run -i -e project_name="$2" -v $PWD/$3:/source_code -v $PWD/output_bin:/output_bin python3_cross_packager/linux-mips64le >run_out/linux-mips64le.out 2>&1 &
+	nohup docker run -i -e project_name="$2" -v $PWD/$3:/source_code -v $PWD/output_bin:/output_bin python3_cross_packager/linux-mips >run_out/linux-mips.out 2>&1 &
+	nohup docker run -i -e project_name="$2" -v $PWD/$3:/source_code -v $PWD/output_bin:/output_bin python3_cross_packager/linux-mipsel >run_out/linux-mipsel.out 2>&1 &
+	nohup docker run -i -e project_name="$2" -v $PWD/$3:/source_code -v $PWD/output_bin:/output_bin python3_cross_packager/linux-mips64el >run_out/linux-mips64el.out 2>&1 &
 	nohup docker run -i -e project_name="$2" -v $PWD/$3:/source_code -v $PWD/output_bin:/output_bin python3_cross_packager/linux-ppc64le >run_out/linux-ppc64le.out 2>&1 &
 	nohup docker run -i -e project_name="$2" -v $PWD/$3:/source_code -v $PWD/output_bin:/output_bin python3_cross_packager/linux-s390x >run_out/linux-s390x.out 2>&1 &
 	cd platforms/FreeBSD-amd64
