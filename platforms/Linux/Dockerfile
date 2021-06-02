@@ -34,7 +34,6 @@ RUN python3 ./waf distclean all
 WORKDIR /pyinstaller-4.0
 RUN python3 setup.py install
 #========== pyinstaller compile ============
-RUN pip3 install lxml pillow
 RUN mkdir /workspace
 CMD cp -r /source_code/* /workspace/ && cd /workspace && ./wrapper/Linux.sh && cd dist && zip $(echo $project_name)-$(uname)-$(dpkg --print-architecture).zip * && mv *.zip /output_bin
 
@@ -57,7 +56,6 @@ RUN python3 ./waf distclean all
 WORKDIR /pyinstaller-4.0
 RUN python3 setup.py install
 #========== pyinstaller compile ============
-RUN pip3 install lxml pillow
 RUN mkdir /workspace
 CMD cp -r /source_code/* /workspace && cd /workspace && ./wrapper/Linux.sh && cd dist && zip $(echo $project_name)-$(uname)-$(dpkg --print-architecture).zip * && mv *.zip /output_bin
 
@@ -80,7 +78,6 @@ RUN python3 ./waf distclean all
 WORKDIR /pyinstaller-4.0
 RUN python3 setup.py install
 #========== pyinstaller compile ============
-RUN pip3 install lxml pillow
 RUN mkdir /workspace
 CMD cp -r /source_code/* /workspace && cd /workspace && ./wrapper/Linux.sh && cd dist && zip $(echo $project_name)-$(uname)-$(dpkg --print-architecture).zip * && mv *.zip /output_bin
 
@@ -117,7 +114,6 @@ RUN python3 ./waf distclean all
 WORKDIR /pyinstaller-4.0
 RUN python3 setup.py install
 #========== pyinstaller compile ============
-RUN pip3 install lxml pillow
 RUN mkdir /workspace
 CMD cp -r /source_code/* /workspace && cd /workspace && ./wrapper/Linux.sh && cd dist && zip $(echo $project_name)-$(uname)-$(dpkg --print-architecture).zip * && mv *.zip /output_bin
 
@@ -140,7 +136,6 @@ RUN python3 ./waf distclean all
 WORKDIR /pyinstaller-4.0
 RUN python3 setup.py install
 #========== pyinstaller compile ============
-RUN pip3 install lxml pillow
 RUN mkdir /workspace
 CMD cp -r /source_code/* /workspace && cd /workspace && ./wrapper/Linux.sh && cd dist && zip $(echo $project_name)-$(uname)-$(dpkg --print-architecture).zip * && mv *.zip /output_bin
 
@@ -163,6 +158,5 @@ RUN python3 ./waf distclean all
 WORKDIR /pyinstaller-4.0
 RUN python3 setup.py install
 #========== pyinstaller compile ============
-RUN pip3 install lxml pillow
 RUN mkdir /workspace
 CMD cp -r /source_code/* /workspace && cd /workspace && ./wrapper/Linux.sh && cd dist && zip $(echo $project_name)-$(uname)-$(dpkg --print-architecture).zip * && mv *.zip /output_bin
