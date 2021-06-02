@@ -38,9 +38,6 @@ FreeBSD安装python模块推荐优先使用pkg install py37-<名称>
 `docker-ce`  
 `vagrant`  
 
-docker镜像:  
-`multiarch/qemu-user-static` 
-
 vagrant插件:  
 `vagrant-env`  
 
